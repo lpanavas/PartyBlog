@@ -13,51 +13,65 @@ router.get('/', function(req, res, next) {
   res.render('index.ejs', {body: 'body'});
 });
 
+//Gets the register page
 router.get("/register", function(req, res){
   res.render("register.ejs", {message: '', messageClass: ''}); 
 });
 
+//gets the login page
 router.get("/login", function(req, res){
   res.render("login.ejs", {message: '', messageClass: ''}); 
 });
-
+// Have to put everything in mongoDB database inside of MongoClient.connect I think
+// Haven't found a better way but I am sure thaere is one
 MongoClient.connect(mongoURL, { useUnifiedTopology: true })
   .then(client => {
     console.log('Connected to Database')
+    //This is the data base. We can just keep this name because it doens't matter too much
     const db = client.db('youtubePage')
+    //This is the collection. Where the actual users are stored
     const userCollection = db.collection('userCollection')
+    //Dictates what happens on the register page when the form is submitted
     router.post('/register', (req, res) => {
+      //gets values from form
       const {firstName, lastName, password} = req.body;
+      //checks if form parts are filled out 
       if (!firstName || !lastName|| !password){  
-          console.log(firstName)  
+          //re renders with message if not filled out
           res.render('register.ejs', {
               message: 'Please fill in all required fields',
               messageClass: 'alert-danger'
           });
           return;
       }
+      //otherwise access data base and looks for user 
       db.collection('userCollection').find({"first":firstName,"last":lastName,"password":password}).toArray()
           .then(results => {
+            //checks if user exists
               if(results.length>0){
-                  console.log(firstName)  
+                   
                   res.render('register.ejs', {
                       message: 'User Already registered',
                       messageClass: 'alert-danger'
                   });
                   return;
               }
+              //if user doesn't exist insert new user into databse
               else{
                   userCollection.insertOne({"first": firstName, "last": lastName, "password": password})
                   .then(result => {
                       console.log(result);
+                      //takes you to login page
                       res.redirect("/login");
-                      res.render('login.ejs', {message: 'Please login in using your name and password', messageClass: ''})
+                      res.render('login.ejs', {message: 'Please login in using your name and password', messageClass: 'alert'})
                   })    
               }
           })
         });
+        //dicates what happens at login
             router.post('/login', (req, res) => {
               const {firstName, lastName, password} = req.body;
+              //same thing to check if all is filled out
               if (!firstName || !lastName|| !password){  
                   console.log(firstName)  
                   res.render('login.ejs', {
@@ -66,14 +80,17 @@ MongoClient.connect(mongoURL, { useUnifiedTopology: true })
                   });
                   return;
               }
+              //checks that user exists
               db.collection('userCollection').find({"first":firstName,"last":lastName,"password":password}).toArray()
                   .then(results => {
                       if(results.length>0){
                           console.log(firstName)  
+                          //creates new user. Uses express session. This will keep track of the user throughout the time they are on the website
                           var newUser = {first: firstName, second: lastName, password: password};
                           req.session.user = newUser;
                           console.log(req.session.user.first)
-                          res.redirect('/youtubeVideos')
+                          //redirects to the party page
+                          res.redirect('/party')
                   }
                   else{
                       res.render('login.ejs', {
@@ -90,5 +107,5 @@ MongoClient.connect(mongoURL, { useUnifiedTopology: true })
 
 
 
-
+//need this at the end of js files  
 module.exports = router;

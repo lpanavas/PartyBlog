@@ -6,10 +6,10 @@ var logger = require('morgan');
 var session = require('express-session');
 
 
-
+//The routes take us to the different js pages in routes folder
+//Not positive what they do but if you add a new thing in routes folder you have to add it here
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var youtubePageRouter = require('./routes/youtubePage')
+var partyPageRouter = require('./routes/partyPage')
 
 // InitiateMongoServer();
 var app = express();
@@ -25,9 +25,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret: "Your secret key"}));
 
+//this is where you add the folder that the routes access
+// /party is the place where the homescreen will be
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/youtubeVideos', youtubePageRouter)
+app.use('/party', partyPageRouter)
 
 
 // catch 404 and forward to error handler
@@ -35,16 +36,6 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('./views/users.ejs');
-// });
 
 
 
