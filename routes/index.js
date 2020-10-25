@@ -2,8 +2,6 @@ var express = require('express');
 const app = require('../app');
 var session = require('express-session');
 var router = express.Router();
-const MongoClient = require('mongodb').MongoClient;
-const mongoURL = 'mongodb+srv://lpanavas:Password1@cluster0.b9bcp.mongodb.net/<dbname>?retryWrites=true&w=majority'
 
 const myDB = require('../db/myMongoDb.js')
   
@@ -38,8 +36,9 @@ router.post('/register', async (req, res) => {
     return;
 }
   // const results = await myDB.getUsers(query);
+  
   const results = await myDB.getUsers(query);
-  console.log(results)
+  // console.log(results)
     //checks if user exists
       if(results.length>0){
            
@@ -79,7 +78,7 @@ router.post('/register', async (req, res) => {
                           if(results.length>0){
                               console.log(firstName)  
                               //creates new user. Uses express session. This will keep track of the user throughout the time they are on the website
-                              var newUser = {first: firstName, second: lastName, password: password};
+                              var newUser = {first: firstName, last: lastName, password: password};
                               req.session.user = newUser;
                               console.log(req.session.user.first)
                               //redirects to the party page
