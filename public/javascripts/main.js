@@ -1,9 +1,9 @@
-
-console.log('hello');
+// var express = require('express');
+// alert("hello");
 // const myDB = require('../../db/myMongoDb.js');
 // console.log(myDB);
 
-document.getElementById("content").innerHTML = "whaasfdasdfasdfadsfdsafdsafdsatever";
+// document.getElementById("content").innerHTML = "whaasfdasdfasdfadsfdsafdsafdsatever";
 
 // cardContainer = document.getElementById('card-container');
 // const results = await myDB.getParties();

@@ -13,9 +13,9 @@ function MyDB() {
             const DB = client.db('youtubePage');
         
             const userCollection = DB.collection('userCollection');
-            console.log(user);
+            // console.log(user);
             users  = await DB.collection('userCollection').find(user).toArray();
-            console.log(users) ;
+            // console.log(users) ;
                
         return users;
     };
@@ -35,10 +35,20 @@ function MyDB() {
         const DB = client.db('youtubePage');
         
         const userCollection = DB.collection('partyPlaces');
-        parties = await DB.collection('parties').find(parties);
+        console.log(parties);
+        parties = await userCollection.find(parties).toArray();
+        // console.log(parties);
+       
         return parties;
     };
-        
+    database.addComment = async(comments) => {
+        const DB = client.db('youtubePage');
+        const userCollection = DB.collection('partyPlaces');
+        userCollection.findOneAndUpdate(
+            {name: comments[0]},
+            {$push: {comments: {firstName: comments[1], lastName: comments[2], comment: comment[3]}}}
+        );
+    } 
     });
     return database;
 }

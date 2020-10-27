@@ -51,7 +51,7 @@ router.post('/register', async (req, res) => {
         else{
           await myDB.insertUser(query)
           .then(result => {
-              console.log(result);
+              // console.log(result);
               //takes you to login page
               res.redirect("/login");
               res.render('login.ejs', {message: 'Please login in using your name and password', messageClass: 'alert'})
@@ -76,11 +76,11 @@ router.post('/register', async (req, res) => {
                   const results = await myDB.getUsers(query);
                       
                           if(results.length>0){
-                              console.log(firstName)  
+                              // console.log(firstName)  
                               //creates new user. Uses express session. This will keep track of the user throughout the time they are on the website
                               var newUser = {first: firstName, last: lastName, password: password};
                               req.session.user = newUser;
-                              console.log(req.session.user.first)
+                              // console.log(req.session.user.first)
                               //redirects to the party page
                               res.redirect('/party')
                       }
