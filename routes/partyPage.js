@@ -27,7 +27,7 @@ router.post("/new", async (req, res) => {
   var dest = req.body.description;
   var authorFirstName= req.session.user.first;
   var authorLastName = req.session.user.last;
-  var newPartyPlace = {"id": id, "name": name, "image": image, "cost": cost, "loc":loc, "web": web, "dest": dest, "authorFirstName": authorFirstName, "authorLastName": authorLastName, comments: null};
+  var newPartyPlace = {"name": name, "image": image, "cost": cost, "loc":loc, "web": web, "dest": dest, "authorFirstName": authorFirstName, "authorLastName": authorLastName, comments: null};
   console.log(newPartyPlace)
   await myDB.insertParty(newPartyPlace)
           .then(result => {
@@ -66,7 +66,7 @@ router.get("/:id", async (req, res) => {
   console.log(authorFirstName, authorLastName);
   await myDB.getParties({"authorFirstName": authorFirstName, "authorLastName": authorLastName})
     .then(result => {
-        console.log(result);
+        // console.log(result);
         res.render('party/userPage.ejs', {parties: result});
     });       
  

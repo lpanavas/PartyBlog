@@ -1,6 +1,33 @@
 // var express = require('express');
-// alert("hello");
+
 // const myDB = require('../../db/myMongoDb.js');
+// var CommentBox = React.createClass({
+//     render: function() {
+//       return (
+//         <div className="commentBox">
+//           Hello, world! I am a CommentBox.
+//         </div>
+//       );
+//     }
+//   });
+//   React.renderComponent(
+//     <CommentBox />,
+//     document.getElementById('content')
+//   );
+// alert("hello");
+// var CommentBox = React.createClass({
+//     render: function() {
+//       return (
+//         <div className="commentBox">
+//           Hello, world! I am a CommentBox.
+//         </div>
+//       );
+//     }
+//   });
+//   React.renderComponent(
+//     <CommentBox />,
+//     document.getElementById('content')
+//   );
 // console.log(myDB);
 
 // document.getElementById("content").innerHTML = "whaasfdasdfasdfadsfdsafdsafdsatever";

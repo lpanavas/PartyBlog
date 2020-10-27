@@ -10,6 +10,7 @@ var session = require('express-session');
 //Not positive what they do but if you add a new thing in routes folder you have to add it here
 var indexRouter = require('./routes/index');
 var partyPageRouter = require('./routes/partyPage')
+var commentPageRouter = require('./routes/comments')
 
 // InitiateMongoServer();
 var app = express();
@@ -29,6 +30,7 @@ app.use(session({secret: "Your secret key"}));
 // /party is the place where the homescreen will be
 app.use('/', indexRouter);
 app.use('/party', partyPageRouter)
+app.use('/comments', commentPageRouter)
 
 
 // catch 404 and forward to error handler

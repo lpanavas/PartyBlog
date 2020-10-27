@@ -35,7 +35,7 @@ function MyDB() {
         const DB = client.db('youtubePage');
         
         const userCollection = DB.collection('partyPlaces');
-        console.log(parties);
+        // console.log(parties);
         parties = await userCollection.find(parties).toArray();
         // console.log(parties);
        
