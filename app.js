@@ -5,6 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 //will have to install some of these
+const cors = require('cors');
+
+
+
+//use cors to allow cross origin resource sharing
+
 
 //The routes take us to the different js pages in routes folder
 //Not positive what they do but if you add a new thing in routes folder you have to add it here
@@ -23,9 +29,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(session({secret: "Your secret key"}));
-
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+  );
 //this is where you add the folder that the routes access
 // /party is the place where the homescreen will be
 app.use('/', indexRouter);

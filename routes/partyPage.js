@@ -13,6 +13,10 @@ router.get('/', async (req, res) => {
     });       
  
   });
+  router.get('/parties', async (req, res) => {
+    const parties = await myDB.getParties();
+  res.json(parties);
+  });
 //form to upload a new blog
 router.get("/new", function(req, res){
     res.render("party/new.ejs"); 
@@ -25,23 +29,13 @@ router.post("/new", async (req, res) => {
   var loc = req.body.location;
   var web = req.body.website;
   var dest = req.body.description;
-  var authorFirstName= req.session.user.first;
-  var authorLastName = req.session.user.last;
+  var authorFirstName= req.body.authorFirstName;
+  var authorLastName = req.body.authorLastName;
   var newPartyPlace = {"name": name, "image": image, "cost": cost, "loc":loc, "web": web, "dest": dest, "authorFirstName": authorFirstName, "authorLastName": authorLastName, comments: null};
   console.log(newPartyPlace)
-  await myDB.insertParty(newPartyPlace)
-          .then(result => {
-              console.log("here");
-              //takes you to login page
-              
-              
-              // res.redirect("/party");
-          });
-  await myDB.getParties()
-  .then(result => {
-      // console.log(result);
-      res.render('party/partyPage.ejs', {parties: result});
-  });
+  await myDB.insertParty(newPartyPlace);
+
+
 });
 router.get("/comment", function(req, res){
   res.render("party/comment.ejs"); 
@@ -56,6 +50,15 @@ router.post("/comment", async (req, res) => {
   //     // console.log(result);
   //     res.render('party/partyPage.ejs', {parties: result});
   // });
+});
+
+
+router.get("/currentUser", async (req, res) => {
+  //find the campground with provided ID
+  var authorFirstName= req.session.user.first;
+  var authorLastName = req.session.user.last;
+  console.log(authorFirstName, authorLastName);
+  await myDB.getParties({"authorFirstName": authorFirstName, "authorLastName": authorLastName})
 });
 
 
