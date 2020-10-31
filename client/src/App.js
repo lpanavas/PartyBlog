@@ -2,44 +2,34 @@ import "./App.css";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-
-
-
 import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Party from "./components/parties/partyPage";
-import NewVenue from "./components/parties/newVenue"
+import NewVenue from "./components/parties/newVenue";
 
+import React, { Component } from "react";
+import { Collapse, Container, Row, Col, Jumbotron, Button } from "reactstrap";
 
 const Routes = () => {
-
-
   return (
+    <Router>
+      <div className="App">
+        <Route exact path="/" component={Landing} />
 
-      <Router>
-        <div className="App">
-        
-          
-          <Route exact path="/" component={Landing} />
-    
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/partyPage" component= {Party} />
-          <Route exact path="/newVenue" component= {NewVenue} />
-        </div>
-      </Router>
-
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/partyPage" component={Party} />
+        <Route exact path="/newVenue" component={NewVenue} />
+      </div>
+    </Router>
   );
 };
 
 function App() {
- 
-    return (
-      <div>
-         <Routes />
-         
-      </div>
-    );
-  }
-
+  return (
+    <div>
+      <Routes />
+    </div>
+  );
+}
 
 export default App;
