@@ -3,20 +3,20 @@ import { useHistory } from "react-router-dom";
 function Landing() {
   const history = useHistory();
   return (
-    <div class="container">
-      <div class="container2">
+    <div className="container">
+      <div className="container2">
         <img
           src="https://static.toiimg.com/photo/67284007/new-year-party.jpg? width: 100%;"
-          class="img-fluid"
+          className="img-fluid"
           alt="hompage"
         />
       </div>
       <br />
 
-      <div class="row"></div>
+      <div className="row"></div>
       <strong>
         <h1
-          class="display-5"
+          className="display-5"
           style={{
             color: "black",
             fontWeight: "bold",
@@ -29,7 +29,7 @@ function Landing() {
       <br />
       <button
         type="button"
-        class="btn btn-info"
+        className="btn btn-info"
         onClick={() => history.push("/login")}
       >
         Log in & Register

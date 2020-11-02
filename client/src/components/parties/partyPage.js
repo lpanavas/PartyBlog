@@ -46,13 +46,13 @@ function Party(props) {
     return parties
       .filter((p) => p.name && p.name.startsWith(search))
       .map((p) => (
-        <div class="card-deck">
+        <div className="card-deck">
           <Card style={{ width: "20rem", margin: "2rem" }} key={p._id}>
             <CardImg
               top
               width="100%"
               src={p.image}
-              class="card-img-top"
+              className="card-img-top"
               alt="party image"
             />
 
@@ -64,17 +64,21 @@ function Party(props) {
               </CardTitle>
 
               <CardSubtitle>
-                <span class="btn btn-outline-info">Cost ${p.cost}</span>
+                <span className="btn btn-outline-info">Cost ${p.cost}</span>
               </CardSubtitle>
 
               <CardText>{p.dest}</CardText>
               <CardText>{p.loc}</CardText>
 
-              <Button color="success" href={p.web}>
+              <Button
+                color="success"
+                className="btn btn-primary mr-1"
+                href={p.web}
+              >
                 Party here !
               </Button>
               <Button
-                color="success"
+                className="btn btn-secondary mr-1"
                 onClick={() => {
                   setShowComments(true);
                   setShow(false);
@@ -83,7 +87,10 @@ function Party(props) {
                   console.log("id", id);
                 }}
               >
-                Comments {p.commentList.length}
+                Comments{" "}
+                <span className="badge badge-light">
+                  {p.commentList.length}
+                </span>
               </Button>
             </CardBody>
 
@@ -106,13 +113,13 @@ function Party(props) {
           p.authorLastName === lastNameVariable.lastName
       )
       .map((p) => (
-        <div class="card-deck">
+        <div className="card-deck">
           <Card style={{ width: "20rem", margin: "2rem" }} key={p._id}>
             <CardImg
               top
               width="100%"
               src={p.image}
-              class="card-img-top"
+              className="card-img-top"
               alt="party image"
             />
 
@@ -124,16 +131,20 @@ function Party(props) {
               </CardTitle>
 
               <CardSubtitle>
-                <span class="btn btn-outline-info">Cost ${p.cost}</span>
+                <span className="btn btn-outline-info">Cost ${p.cost}</span>
               </CardSubtitle>
 
               <CardText>{p.dest}</CardText>
 
-              <Button color="success" href={p.web}>
+              <Button
+                color="success"
+                className="btn btn-primary mr-1"
+                href={p.web}
+              >
                 Party here !
               </Button>
               <Button
-                color="success"
+                className="btn btn-secondary mr-1"
                 onClick={() => {
                   setShowComments(true);
                   setShow(false);
@@ -143,7 +154,10 @@ function Party(props) {
                   console.log("id", id);
                 }}
               >
-                Comments {p.commentList.length}
+                Comments{" "}
+                <span className="badge badge-light">
+                  {p.commentList.length}
+                </span>
               </Button>
             </CardBody>
 
@@ -158,29 +172,29 @@ function Party(props) {
   //   const renderParties = () => {
 
   return (
-    <div class="container">
-      <nav class="navbar  navbar-dark bg-dark">
-        <div class="container">
+    <div className="container">
+      <nav className="navbar  navbar-dark bg-dark">
+        <div className="container">
           <button
-            className="navbar-brand"
+            // className="navbar-brand"
             type="button"
-            class="btn btn-outline-info"
+            className="navbar-brand btn btn-outline-info"
             onClick={() => history.push("/newVenue")}
           >
             <h4>
               {" "}
               Click here to share &nbsp;
-              <span class="badge badge-info">New Party Places !</span>
+              <span className="badge badge-info">New Party Places !</span>
             </h4>
           </button>
 
-          <form class="form-inline my-2 my-lg-0">
+          <form className="form-inline my-2 my-lg-0">
             <label>
               <h5 style={{ color: "white", fontWeight: "bold" }}>
                 Search here&nbsp;{" "}
               </h5>
               <input
-                class="form-control mr-sm-2"
+                className="form-control mr-sm-2"
                 type="text"
                 placeholder="Halloween"
                 value={search}
@@ -191,10 +205,22 @@ function Party(props) {
         </div>
       </nav>
       <br />
-
+      <div>
+        <div class="row">
+          <h6>
+            Please enjoy finding your next party. Click on User HomePage to find
+            the parties you have listed. Select Main Page to see all the
+            parties. In the upper left you can add a new party by clicking on
+            the button. If your looking for a specific place, please use the
+            Search bar in the upper right. Finally, feel free to share your
+            opinions on these party places if you have been to them by clicking
+            the comment button on any of the places.
+          </h6>
+        </div>
+      </div>
       <button
         type="button"
-        class="btn btn-outline-info"
+        className="btn btn-info mr-2"
         onClick={(evt) => {
           evt.preventDefault();
           setShow(false);
@@ -203,13 +229,13 @@ function Party(props) {
         }}
       >
         <h4>
-          <span class="badge badge-info">User HomePage</span>
+          <span className="badge badge-info">User HomePage</span>
         </h4>
       </button>
 
       <button
         type="button"
-        class="btn btn-outline-info"
+        className="btn btn-info mr-2"
         onClick={(evt) => {
           evt.preventDefault();
           setShow(true);
@@ -218,7 +244,7 @@ function Party(props) {
         }}
       >
         <h4>
-          <span class="badge badge-info">Main Page</span>
+          <span className="badge badge-info">Main Page</span>
         </h4>
       </button>
 
@@ -234,9 +260,9 @@ function Party(props) {
               fontWeight: "bold",
             }}
           >
-            Welcome
-          </h3>{" "}
-          {firstName} {lastName}
+            Welcome {firstName} {lastName}
+          </h3>
+
           <div className="row">{renderUserParties()}</div>
         </div>
       ) : (

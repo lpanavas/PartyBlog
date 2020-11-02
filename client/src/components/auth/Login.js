@@ -54,12 +54,12 @@ const Login = (props) => {
             height="600"
             width="1200"
             crop="fill"
-            class="img-fluid"
+            className="img-fluid"
             alt="login party"
           />
         </div>
 
-        <div class="col-4">
+        <div className="col-4">
           <h1
             style={{
               color: "black",

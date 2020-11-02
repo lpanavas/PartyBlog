@@ -34,18 +34,18 @@ function NewVenue(props) {
   //put functions up here. Like consts that put it in return
   return (
     <div>
-      <div class="row">
-        <div class="col-8">
+      <div className="row">
+        <div className="col-8">
           <img
             src={Logo}
             height="600"
             width="1200"
             crop="fill"
-            class="img-fluid"
+            className="img-fluid"
             alt="login party"
           />
         </div>
-        <div class="col-4">
+        <div className="col-4">
           <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Let's have a party</h1>
 
@@ -82,12 +82,12 @@ function NewVenue(props) {
             <input type="textarea" name="description" ref={register} />
             <br />
             <br />
-            <input class="btn btn-success" type="submit" />
+            <input className="btn btn-success" type="submit" />
           </form>
           <br />
           <button
             type="button"
-            class="btn btn-dark"
+            className="btn btn-dark"
             onClick={() => history.push("/partyPage")}
           >
             Go to home

@@ -19,7 +19,7 @@ function SingleParty(props) {
   const getParties = async () => {
     try {
       const parties = await fetch("/party/parties").then((res) => res.json());
-      console.log("got posts", parties);
+
       setParties(parties);
     } catch (err) {
       console.log("error ", err);
@@ -34,13 +34,13 @@ function SingleParty(props) {
     return parties
       .filter((p) => p._id && p._id === props.id)
       .map((p) => (
-        <div class="card-deck">
+        <div className="card-deck">
           <Card style={{ width: "20rem", margin: "2rem" }} key={p._id}>
             <CardImg
               top
               width="100%"
               src={p.image}
-              class="card-img-top"
+              className="card-img-top"
               alt="party image"
             />
 
@@ -52,7 +52,7 @@ function SingleParty(props) {
               </CardTitle>
 
               <CardSubtitle>
-                <span class="btn btn-outline-info">Cost ${p.cost}</span>
+                <span className="btn btn-outline-info">Cost ${p.cost}</span>
               </CardSubtitle>
 
               <CardText>{p.dest}</CardText>
@@ -111,12 +111,12 @@ function SingleParty(props) {
   };
 
   return (
-    <div class="row">
-      <div class="col-8">
+    <div className="row">
+      <div className="col-8">
         {renderUserParties()}
         {seeComments()}
       </div>
-      <div class="col-4">
+      <div className="col-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1>Leave a comment</h1>
 
@@ -134,7 +134,7 @@ function SingleParty(props) {
 
           <br />
           <br />
-          <input class="btn btn-success" type="submit" />
+          <input className="btn btn-success" type="submit" />
         </form>
       </div>
     </div>
