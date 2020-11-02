@@ -7,8 +7,7 @@ import Login from "./components/auth/Login";
 import Party from "./components/parties/partyPage";
 import NewVenue from "./components/parties/newVenue";
 
-import React, { Component } from "react";
-import { Collapse, Container, Row, Col, Jumbotron, Button } from "reactstrap";
+import React from "react";
 
 const Routes = () => {
   return (

@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
-import SingleParty from "./singleParty"
+import SingleParty from "./singleParty";
+
 import {
   Card,
   CardImg,
   CardText,
-  CardBlock,
   CardTitle,
   CardSubtitle,
   CardBody,
   CardFooter,
   Button,
-  Container,
 } from "reactstrap";
 function Party(props) {
   const [show, setShow] = useState(true);
   const [showUser, setShowUser] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [id, setId] = useState("")
-
+  const [id, setId] = useState("");
   const history = useHistory();
   const [parties, setParties] = useState([]);
-  const { firstName, lastName, password } =
+  const { firstName, lastName } =
     (props.location && props.location.state) || {};
   const [search, setSearch] = useState("");
-  const [author, setAuthor] = useState("");
-  const firstNameVariable = {firstName};
-  const lastNameVariable = {lastName};
-  
+
+  const firstNameVariable = { firstName };
+  const lastNameVariable = { lastName };
+
   const getParties = async () => {
     console.log("getting posts");
     try {
@@ -40,18 +38,11 @@ function Party(props) {
     }
   };
 
- 
   useEffect(() => {
     getParties();
   }, []); // Only run the first time
 
-  const onChange = (evt) => {
-    console.log("On change", evt);
-    setShow(evt.target.checked);
-  };
-
   const renderParties = () => {
-   
     return parties
       .filter((p) => p.name && p.name.startsWith(search))
       .map((p) => (
@@ -82,23 +73,19 @@ function Party(props) {
               <Button color="success" href={p.web}>
                 Party here !
               </Button>
-              <Button color="success" 
-                
-                
+              <Button
+                color="success"
                 onClick={() => {
-                  
-                
-                    setShowComments(true);
-                    setShow(false);
-                    setShowUser(false);
+                  setShowComments(true);
+                  setShow(false);
+                  setShowUser(false);
                   setId(p._id);
                   console.log("id", id);
-                  
-                }}>
-                  Comments {p.commentList.length}
+                }}
+              >
+                Comments {p.commentList.length}
               </Button>
             </CardBody>
-
 
             <CardFooter className="text-muted">
               Created by {p.authorLastName}, {p.authorFirstName}
@@ -107,12 +94,17 @@ function Party(props) {
         </div>
       ));
   };
-  
+
   // && p.authorLastName && p.authorFirstName === (lastNameVariable.lastName)
   const renderUserParties = () => {
- 
     return parties
-      .filter((p) => p.authorFirstName && p.authorFirstName === (firstNameVariable.firstName) && p.authorLastName && p.authorLastName === (lastNameVariable.lastName) )
+      .filter(
+        (p) =>
+          p.authorFirstName &&
+          p.authorFirstName === firstNameVariable.firstName &&
+          p.authorLastName &&
+          p.authorLastName === lastNameVariable.lastName
+      )
       .map((p) => (
         <div class="card-deck">
           <Card style={{ width: "20rem", margin: "2rem" }} key={p._id}>
@@ -140,6 +132,19 @@ function Party(props) {
               <Button color="success" href={p.web}>
                 Party here !
               </Button>
+              <Button
+                color="success"
+                onClick={() => {
+                  setShowComments(true);
+                  setShow(false);
+                  setShowUser(false);
+                  setId(p._id);
+
+                  console.log("id", id);
+                }}
+              >
+                Comments {p.commentList.length}
+              </Button>
             </CardBody>
 
             <CardFooter className="text-muted">
@@ -156,19 +161,18 @@ function Party(props) {
     <div class="container">
       <nav class="navbar  navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand">
-            <button
-              type="button"
-              class="btn btn-outline-info"
-              onClick={() => history.push("/newVenue")}
-            >
-              <h4>
-                {" "}
-                Click here to share &nbsp;
-                <span class="badge badge-info">New Party Places !</span>
-              </h4>
-            </button>
-          </a>
+          <button
+            className="navbar-brand"
+            type="button"
+            class="btn btn-outline-info"
+            onClick={() => history.push("/newVenue")}
+          >
+            <h4>
+              {" "}
+              Click here to share &nbsp;
+              <span class="badge badge-info">New Party Places !</span>
+            </h4>
+          </button>
 
           <form class="form-inline my-2 my-lg-0">
             <label>
@@ -184,14 +188,9 @@ function Party(props) {
               ></input>
             </label>
           </form>
-          
         </div>
       </nav>
       <br />
-      
-      {/* <label>
-        User Homepage <input type="checkbox" checked={show} onChange={onChange} />
-      </label> */}
 
       <button
         type="button"
@@ -201,7 +200,6 @@ function Party(props) {
           setShow(false);
           setShowUser(true);
           setShowComments(false);
-          console.log(author);
         }}
       >
         <h4>
@@ -224,31 +222,26 @@ function Party(props) {
         </h4>
       </button>
 
-      {show ? (
-        <div className="row">
-      
-          {renderParties()}
-          </div>
-      ) :""}
-      
-      {showUser ?(<div>
-        <h3
-          style={{
-            color: "black",
+      {show ? <div className="row">{renderParties()}</div> : ""}
 
-            fontFamily: "Georgia",
-            fontWeight: "bold",
-          }}
-        >
-          Welcome
-        </h3>{" "}
-        
-        {firstName} {lastName}
-        <div className="row">
-      
-          {renderUserParties()}
-          </div>
-      </div>):""}
+      {showUser ? (
+        <div>
+          <h3
+            style={{
+              color: "black",
+
+              fontFamily: "Georgia",
+              fontWeight: "bold",
+            }}
+          >
+            Welcome
+          </h3>{" "}
+          {firstName} {lastName}
+          <div className="row">{renderUserParties()}</div>
+        </div>
+      ) : (
+        ""
+      )}
 
       {showComments ? <SingleParty id={id}></SingleParty> : ""}
     </div>

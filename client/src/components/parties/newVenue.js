@@ -2,19 +2,18 @@ import React from "react";
 
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+
 import Logo from "./partypic2.png";
 
 function NewVenue(props) {
   const history = useHistory();
   const { register, handleSubmit } = useForm();
-  const { firstName, lastName, password } =
-    (props.location && props.location.state) || {};
-  const [search, setSearch] = useState("");
+  // const { firstName, lastName, password } =
+  //   (props.location && props.location.state) || {};
 
   async function postData(data) {
     // Default options are marked with *
-    const response = await fetch("/party/new", {
+    await fetch("/party/new", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
 
       headers: {
@@ -51,7 +50,6 @@ function NewVenue(props) {
             <h1>Let's have a party</h1>
 
             <label>First Name</label>
-
             <br />
             <input type="text" name="authorFirstName" ref={register} />
             <br />
