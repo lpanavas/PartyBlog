@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useHistory } from "react-router-dom";
+import SingleParty from "./singleParty"
 import {
   Card,
   CardImg,
@@ -14,12 +15,20 @@ import {
   Container,
 } from "reactstrap";
 function Party(props) {
+  const [show, setShow] = useState(true);
+  const [showUser, setShowUser] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [id, setId] = useState("")
+
   const history = useHistory();
   const [parties, setParties] = useState([]);
   const { firstName, lastName, password } =
     (props.location && props.location.state) || {};
   const [search, setSearch] = useState("");
-
+  const [author, setAuthor] = useState("");
+  const firstNameVariable = {firstName};
+  const lastNameVariable = {lastName};
+  
   const getParties = async () => {
     console.log("getting posts");
     try {
@@ -31,14 +40,79 @@ function Party(props) {
     }
   };
 
+ 
   useEffect(() => {
     getParties();
   }, []); // Only run the first time
 
+  const onChange = (evt) => {
+    console.log("On change", evt);
+    setShow(evt.target.checked);
+  };
+
   const renderParties = () => {
-    // let { id, name, company, description } = this.props.person;
+   
     return parties
       .filter((p) => p.name && p.name.startsWith(search))
+      .map((p) => (
+        <div class="card-deck">
+          <Card style={{ width: "20rem", margin: "2rem" }} key={p._id}>
+            <CardImg
+              top
+              width="100%"
+              src={p.image}
+              class="card-img-top"
+              alt="party image"
+            />
+
+            <CardBody>
+              <CardTitle>
+                <strong>
+                  <h5>{p.name}</h5>
+                </strong>
+              </CardTitle>
+
+              <CardSubtitle>
+                <span class="btn btn-outline-info">Cost ${p.cost}</span>
+              </CardSubtitle>
+
+              <CardText>{p.dest}</CardText>
+              <CardText>{p.loc}</CardText>
+
+              <Button color="success" href={p.web}>
+                Party here !
+              </Button>
+              <Button color="success" 
+                
+                
+                onClick={() => {
+                  
+                
+                    setShowComments(true);
+                    setShow(false);
+                    setShowUser(false);
+                  setId(p._id);
+                  console.log("id", id);
+                  
+                }}>
+                  Comments {p.commentList.length}
+              </Button>
+            </CardBody>
+
+
+            <CardFooter className="text-muted">
+              Created by {p.authorLastName}, {p.authorFirstName}
+            </CardFooter>
+          </Card>
+        </div>
+      ));
+  };
+  
+  // && p.authorLastName && p.authorFirstName === (lastNameVariable.lastName)
+  const renderUserParties = () => {
+ 
+    return parties
+      .filter((p) => p.authorFirstName && p.authorFirstName === (firstNameVariable.firstName) && p.authorLastName && p.authorLastName === (lastNameVariable.lastName) )
       .map((p) => (
         <div class="card-deck">
           <Card style={{ width: "20rem", margin: "2rem" }} key={p._id}>
@@ -75,23 +149,8 @@ function Party(props) {
         </div>
       ));
   };
-  //   const renderParties = () => {
 
-  //     // return parties
-  //     //   .map((p) => (
-  //         <Card style={{ width: '18rem' }} >
-  //         <Card.Img variant="top" src="holder.js/100px180" />
-  //         <Card.Body>
-  //           <Card.Title>Card Title</Card.Title>
-  //           <Card.Text>
-  //             Some quick example text to build on the card title and make up the bulk of
-  //             the card's content.
-  //           </Card.Text>
-  //           <Button variant="primary">Go somewhere</Button>
-  //         </Card.Body>
-  //       </Card>
-  //     //   ));
-  //   };
+  //   const renderParties = () => {
 
   return (
     <div class="container">
@@ -125,10 +184,54 @@ function Party(props) {
               ></input>
             </label>
           </form>
+          
         </div>
       </nav>
       <br />
-      <div>
+      
+      {/* <label>
+        User Homepage <input type="checkbox" checked={show} onChange={onChange} />
+      </label> */}
+
+      <button
+        type="button"
+        class="btn btn-outline-info"
+        onClick={(evt) => {
+          evt.preventDefault();
+          setShow(false);
+          setShowUser(true);
+          setShowComments(false);
+          console.log(author);
+        }}
+      >
+        <h4>
+          <span class="badge badge-info">User HomePage</span>
+        </h4>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline-info"
+        onClick={(evt) => {
+          evt.preventDefault();
+          setShow(true);
+          setShowUser(false);
+          setShowComments(false);
+        }}
+      >
+        <h4>
+          <span class="badge badge-info">Main Page</span>
+        </h4>
+      </button>
+
+      {show ? (
+        <div className="row">
+      
+          {renderParties()}
+          </div>
+      ) :""}
+      
+      {showUser ?(<div>
         <h3
           style={{
             color: "black",
@@ -139,10 +242,15 @@ function Party(props) {
         >
           Welcome
         </h3>{" "}
+        
         {firstName} {lastName}
-      </div>
+        <div className="row">
+      
+          {renderUserParties()}
+          </div>
+      </div>):""}
 
-      <div className="row">{renderParties()}</div>
+      {showComments ? <SingleParty id={id}></SingleParty> : ""}
     </div>
   );
 }

@@ -3,6 +3,7 @@ const app = require('../app');
 var session = require('express-session');
 var router = express.Router();
 const myDB = require('../db/myMongoDb.js')
+var ObjectId = require('mongodb').ObjectId; 
 //nothing so far 
 router.get('/', async (req, res) => {
   //message tests that the user is active. you can use this to keep track of the users
@@ -16,6 +17,8 @@ router.get('/', async (req, res) => {
   router.get('/parties', async (req, res) => {
     const parties = await myDB.getParties();
   res.json(parties);
+  // res.send(req.session.user);
+  console.log("user in parties", req.session.user);
   });
 //form to upload a new blog
 router.get("/new", function(req, res){
@@ -31,26 +34,22 @@ router.post("/new", async (req, res) => {
   var dest = req.body.description;
   var authorFirstName= req.body.authorFirstName;
   var authorLastName = req.body.authorLastName;
-  var newPartyPlace = {"name": name, "image": image, "cost": cost, "loc":loc, "web": web, "dest": dest, "authorFirstName": authorFirstName, "authorLastName": authorLastName, comments: null};
+  var newPartyPlace = {"name": name, "image": image, "cost": cost, "loc":loc, "web": web, "dest": dest, "authorFirstName": authorFirstName, "authorLastName": authorLastName, commentList: []};
   console.log(newPartyPlace)
   await myDB.insertParty(newPartyPlace);
-
-
 });
-router.get("/comment", function(req, res){
-  res.render("party/comment.ejs"); 
-});
-
 router.post("/comment", async (req, res) => {
+  var id = req.body._id;
+ 
+  var authorFirstName= req.body.authorFirstName;
+  var authorLastName = req.body.authorLastName;
   var comment = req.body.comment;
-  console.log(comment);
-  res.redirect('/party');
-  // await myDB.getParties()
-  // .then(result => {
-  //     // console.log(result);
-  //     res.render('party/partyPage.ejs', {parties: result});
-  // });
+  // var newPartyPlace = {"_id": _id, "authorFirstName": authorFirstName, "authorLastName": authorLastName, "comment": comment};
+  var newPartyPlace = [id, authorFirstName,  authorLastName, comment];
+  await myDB.addComment(newPartyPlace);
 });
+
+
 
 
 router.get("/currentUser", async (req, res) => {

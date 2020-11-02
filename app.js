@@ -30,19 +30,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(session({secret: "Your secret key"}));
-app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  })
-  );
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
+
+
+// app.use(function (req, res, next) {
+//     console.log("user", req.session);
+//     if (req.session.user) {
+//         return res.send(req.session.user);
+//     }
+//     next()
+//     console.log("email", req.session.email)
+// });
+
 //this is where you add the folder that the routes access
 // /party is the place where the homescreen will be
 app.use('/', indexRouter);
 app.use('/party', partyPageRouter)
 app.use('/comments', commentPageRouter)
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

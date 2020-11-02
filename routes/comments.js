@@ -11,12 +11,8 @@ router.get('/:commentID', async (req, res) => {
     
     var o_id = new ObjectId(id);
   console.log(id, o_id);
-  await myDB.getParties({"_id": o_id})
-    .then(result => {
-        // console.log(result);
-        res.render('comments/cardHome.ejs', {parties: result});
-    });     
-
+  const singleParty = await myDB.getParties({"_id": o_id})
+  res.json(singleParty);
 });
 
 
