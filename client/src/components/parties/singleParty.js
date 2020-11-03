@@ -25,7 +25,7 @@ function SingleParty(props) {
       console.log("error ", err);
     }
   };
-
+  // hello
   useEffect(() => {
     getParties();
   }, []); // Only run the first time
