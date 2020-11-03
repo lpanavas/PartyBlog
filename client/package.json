@@ -48,5 +48,8 @@
       "last 1 safari version"
     ]
   },
+  "engines": {
+    "node": "v12.18.4"
+  },
   "proxy": "http://localhost:3001"
 }
