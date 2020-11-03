@@ -32,7 +32,7 @@ app.use(session({ secret: "ssshhhhh", saveUninitialized: true, resave: true }));
 // /party is the place where the homescreen will be
 app.use("/", indexRouter);
 app.use("/party", partyPageRouter);
-
+app.listen(process.env.PORT || 8080);
 // catch 404 and forward to error handler
 
 module.exports = app;
