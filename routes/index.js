@@ -17,6 +17,11 @@ router.get("/register", function(req, res){
   res.render("register.ejs", {message: '', messageClass: ''}); 
 });
 
+router.get('/users', async (req, res) => {
+  const posts = await myDB.getUsers();
+  res.json(posts);
+});
+
 //gets the login page
 router.get("/login", function(req, res){
   res.render("login.ejs", {message: '', messageClass: ''}); 
