@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "devstart": "nodemon ./bin/www",
-    "serverstart": "DEBUG=youtubeTutorial:* npm start",
+    
+    "serverstart": "npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
 
