@@ -11,6 +11,6 @@ The objective of this website was to create an express and Mongodb and backend w
 #### Instructions to build:
 1. Clone the repository
 1. Do ‘npm install’ separately in youtubeTutorial folder and client folder on command line
--Start mongo server
--Start backend and frontend servers separately with ‘npm start’ in youtubeTutorial and client folders
--Go to localhost:3001 to see the website and 3000 to see the backend.
+1. Start mongo server
+1. Start backend and frontend servers separately with ‘npm start’ in youtubeTutorial and client folders
+1. Go to localhost:3000 to see the website and 3001 to see the backend.
