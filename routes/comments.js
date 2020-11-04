@@ -6,7 +6,6 @@ const myDB = require('../db/myMongoDb.js')
 var ObjectId = require('mongodb').ObjectId; 
 
 router.get('/:commentID', async (req, res) => {
-    // console.log('hello');
     var id = req.params.commentID;
     
     var o_id = new ObjectId(id);
