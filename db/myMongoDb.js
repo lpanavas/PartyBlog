@@ -1,6 +1,8 @@
 var express = require("express");
 var session = require("express-session");
 const MongoClient = require("mongodb").MongoClient;
+
+//Best to not expose mongo credentials
 const mongoURL =
   "mongodb+srv://lpanavas:Password1@cluster0.b9bcp.mongodb.net/<dbname>?retryWrites=true&w=majority";
 
