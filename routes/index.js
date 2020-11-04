@@ -1,7 +1,6 @@
 var express = require("express");
 const app = require("../app");
 var session = require("express-session");
-// import connectStore from "connect-mongo";
 var router = express.Router();
 
 const myDB = require("../db/myMongoDb.js");
@@ -18,7 +17,6 @@ router.post("/register", async (req, res) => {
   const { firstName, lastName, password } = req.body;
   const query = { first: firstName, last: lastName, password: password };
 
-  // res.send(req.session.user);
   await myDB.insertUser(query);
 });
 
