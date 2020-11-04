@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="row">
+        <h1 style="text-align: center">Create a New Party Venue</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/party/new" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Mission Bowling Club">
+                </div>
+                <div class="form-group">
+                    <label for="image">Image Url</label>
+                    <input class="form-control" type="text" name="image" id="image" placeholder="https://assets3.thrillist.com/v1/image/1680715/828x610/flatten;crop;jpeg_quality=70">
+                </div>
+                <div class="form-group">
+                    <label for="cost">Cost per person</label>
+                    <input class="form-control" type="number" name="cost" id="cost" placeholder="25" step="0.5" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input class="form-control" type="text" name="location" id="location" placeholder="San Francisco, CA">
+                </div>
+                <div class="form-group">
+                    <label for="website">Website URL</label>
+                    <input class="form-control" type="text" name="website" id="website" placeholder="https://www.missionbowlingclub.com/">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input class="form-control" type="text" name="description" id="description" placeholder="Upscale bowling alley with well stocked bar and delicions food">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/party">Go Back</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

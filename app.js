@@ -27,6 +27,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use(session({ secret: "ssshhhhh", saveUninitialized: true, resave: true }));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+});
 
 //this is where you add the folder that the routes access
 // /party is the place where the homescreen will be
